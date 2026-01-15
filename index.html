@@ -252,6 +252,132 @@
             color: var(--text);
         }
 
+        .label.pink {
+            background: #E91E63;
+            color: white;
+        }
+
+        .label.purple {
+            background: #9C27B0;
+            color: white;
+        }
+
+        .label.green {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .label.orange {
+            background: #FF9800;
+            color: white;
+        }
+
+        .label.blue {
+            background: #2196F3;
+            color: white;
+        }
+
+        /* Completion states */
+        .card.completed {
+            background: rgba(82, 146, 148, 0.08);
+            border-color: var(--teal);
+        }
+
+        [data-theme="dark"] .card.completed,
+        [data-theme="amoled"] .card.completed {
+            background: rgba(82, 146, 148, 0.15);
+        }
+
+        .complete-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            border: 1px solid var(--teal);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--teal);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-body);
+            margin-bottom: 12px;
+        }
+
+        .complete-btn:hover {
+            background: var(--teal);
+            color: white;
+        }
+
+        .complete-btn.completed {
+            background: var(--teal);
+            color: white;
+        }
+
+        /* Learn/Track toggle */
+        .mode-toggle {
+            display: flex;
+            gap: 8px;
+            margin: 16px 0;
+            padding: 4px;
+            background: var(--bg);
+            border-radius: 8px;
+            border: 1px solid var(--text);
+            width: fit-content;
+        }
+
+        .mode-toggle button {
+            padding: 8px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .mode-toggle button.active {
+            background: var(--teal);
+            color: white;
+        }
+
+        .learn-content {
+            display: none;
+        }
+
+        .learn-content.active {
+            display: block;
+        }
+
+        .track-content.hidden {
+            display: none;
+        }
+
+        /* Footer */
+        .site-footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--text);
+            text-align: center;
+        }
+
+        .site-footer h3 {
+            font-family: var(--font-header);
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: var(--teal);
+        }
+
+        .site-footer p {
+            max-width: 600px;
+            margin: 0 auto 12px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
         .info-box {
             background: rgba(82, 146, 148, 0.1);
             border-left: 3px solid var(--teal);
@@ -495,6 +621,12 @@
             background: var(--bg);
         }
 
+        .nav a.completed {
+            background: rgba(82, 146, 148, 0.15);
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
         .icon {
             width: 20px;
             height: 20px;
@@ -660,14 +792,14 @@
         </div>
 
         <nav class="nav">
-            <a href="#phase1">Phase 1: Baseline</a>
-            <a href="#week1">Week 1</a>
-            <a href="#week2">Week 2</a>
-            <a href="#week3">Week 3</a>
-            <a href="#week4">Week 4</a>
-            <a href="#week5">Week 5</a>
-            <a href="#phase3">Phase 3: Final</a>
-            <a href="#phase4">Results</a>
+            <a href="#phase1" data-section="phase1">Phase 1: Baseline</a>
+            <a href="#week1" data-section="week1">Week 1</a>
+            <a href="#week2" data-section="week2">Week 2</a>
+            <a href="#week3" data-section="week3">Week 3</a>
+            <a href="#week4" data-section="week4">Week 4</a>
+            <a href="#week5" data-section="week5">Week 5</a>
+            <a href="#phase3" data-section="phase3">Phase 3: Final</a>
+            <a href="#phase4" data-section="phase4">Results</a>
         </nav>
 
         <!-- Phase 1 -->
@@ -749,6 +881,16 @@
                     kindness, bravery).<br><br>
                     <strong>Challenge:</strong> Identify your top 4 strengths and use one in a NEW way every day.
                 </div>
+
+                <a href="https://www.viacharacter.org/topics/articles/what-are-your-signature-strengths" target="_blank"
+                    class="btn primary" style="margin: 16px 0;">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    Identify Your Signature Strengths
+                </a>
 
                 <h3>My Top 4 Strengths</h3>
                 <input type="text" placeholder="Strength 1" data-key="strength_1">
@@ -1093,6 +1235,19 @@
             </div>
         </section>
 
+        <!-- Footer -->
+        <footer class="site-footer">
+            <h3>About This Journey</h3>
+            <p>Rewirement is a transformative 10-week wellbeing initiative based on Yale's acclaimed "The Science of
+                Well-Being" course. Through evidence-based practices and daily challenges, you'll rewire your brain for
+                lasting happiness.</p>
+            <p>This program combines the PERMA model of wellbeing with practical exercises in gratitude, mindfulness,
+                kindness, and self-discovery. Each week builds upon the last, creating sustainable habits that boost
+                your mental health and life satisfaction.</p>
+            <p>Your journey is private and personal—all data stays on your device. Take your time, be consistent, and
+                watch as small daily actions create profound changes in your wellbeing.</p>
+        </footer>
+
         <!-- Easter Egg -->
         <div class="easter-egg">
             <button class="easter-btn"
@@ -1152,18 +1307,19 @@
                 display: block !important;
                 font-family: 'IBM Plex Mono', monospace;
                 color: #2B2B2B;
-                font-size: 11pt;
+                font-size: 9pt;
+                line-height: 1.3;
             }
 
             @page {
                 size: A4;
-                margin: 15mm;
+                margin: 12mm;
             }
 
             .print-report .print-strip {
                 display: flex;
-                height: 8px;
-                margin-bottom: 20px;
+                height: 6px;
+                margin-bottom: 8px;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -1194,7 +1350,7 @@
 
             .print-report .print-page {
                 page-break-after: always;
-                min-height: 250mm;
+                min-height: 270mm;
                 position: relative;
             }
 
@@ -1204,50 +1360,53 @@
 
             .print-report h1 {
                 color: #529294;
-                font-size: 28pt;
+                font-size: 20pt;
                 text-align: center;
-                margin: 0 0 5mm;
+                margin: 0 0 3mm;
                 font-family: 'Space Grotesk', sans-serif;
             }
 
             .print-report .print-subtitle {
                 text-align: center;
-                font-size: 12pt;
-                margin-bottom: 15mm;
+                font-size: 9pt;
+                margin-bottom: 6mm;
                 opacity: 0.7;
             }
 
             .print-report h2 {
                 color: #529294;
-                font-size: 14pt;
-                border-bottom: 2px solid #529294;
-                padding-bottom: 2mm;
-                margin: 8mm 0 5mm;
+                font-size: 11pt;
+                border-bottom: 1.5px solid #529294;
+                padding-bottom: 1mm;
+                margin: 4mm 0 2mm;
                 font-family: 'Space Grotesk', sans-serif;
             }
 
             .print-report h3 {
                 color: #529294;
-                font-size: 11pt;
-                margin: 5mm 0 3mm;
+                font-size: 9pt;
+                margin: 3mm 0 1mm;
+                font-weight: 600;
             }
 
             .print-report .comparison-table {
                 width: 100%;
                 border-collapse: collapse;
-                margin: 5mm 0;
+                margin: 2mm 0;
+                font-size: 8pt;
             }
 
             .print-report .comparison-table th,
             .print-report .comparison-table td {
                 border: 1px solid #529294;
-                padding: 3mm;
+                padding: 1.5mm;
                 text-align: center;
             }
 
             .print-report .comparison-table th {
                 background: #529294;
                 color: white;
+                font-size: 8pt;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -1264,19 +1423,19 @@
             .print-report .tracker-grid {
                 display: grid;
                 grid-template-columns: repeat(7, 1fr);
-                gap: 2mm;
-                margin: 3mm 0;
+                gap: 1.5mm;
+                margin: 2mm 0;
             }
 
             .print-report .tracker-day {
                 width: 100%;
                 aspect-ratio: 1;
                 border: 1px solid #529294;
-                border-radius: 4px;
+                border-radius: 2px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 8pt;
+                font-size: 7pt;
             }
 
             .print-report .tracker-day.done {
@@ -1287,28 +1446,49 @@
             }
 
             .print-report .week-section {
-                margin-bottom: 6mm;
+                margin-bottom: 3mm;
             }
 
             .print-report .week-title {
-                font-weight: bold;
-                font-size: 10pt;
-                margin-bottom: 2mm;
+                font-weight: 600;
+                font-size: 8pt;
+                margin-bottom: 1mm;
                 color: #529294;
             }
 
             .print-report .inline-data {
-                font-size: 10pt;
+                font-size: 8pt;
+                margin: 1mm 0;
+                line-height: 1.4;
+            }
+
+            .print-report .data-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3mm;
                 margin: 2mm 0;
+            }
+
+            .print-report .data-item {
+                font-size: 8pt;
+                padding: 2mm;
+                background: rgba(82, 146, 148, 0.05);
+                border-left: 2px solid #529294;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-report .data-item strong {
+                color: #529294;
             }
 
             .print-report .footer {
                 position: absolute;
-                bottom: 0;
+                bottom: 3mm;
                 left: 0;
                 right: 0;
                 text-align: center;
-                font-size: 8pt;
+                font-size: 7pt;
                 opacity: 0.5;
             }
         }
@@ -1367,6 +1547,104 @@
                 header.addEventListener('click', () => card.classList.toggle('collapsed'));
             });
 
+            // Educational content for Learn mode
+            const learnContent = {
+                phase1: "The PERMA model, developed by psychologist Martin Seligman, represents five core elements of psychological wellbeing: Positive emotions (experiencing joy, gratitude, and contentment), Engagement (being fully absorbed in activities), Relationships (meaningful connections with others), Meaning (serving something bigger than yourself), and Accomplishment (achieving goals and mastery). Research shows that measuring your baseline happiness provides crucial self-awareness and motivation for change.",
+                week1: "Character strengths are positive traits that feel authentic and energizing to use. Research by Christopher Peterson and Martin Seligman identified 24 universal character strengths. Your 'signature strengths' are the 4-7 strengths that feel most essential to who you are. Studies show that using signature strengths in new ways daily for just one week can increase happiness and decrease depression for up to six months. The key is novelty—finding fresh applications challenges your brain and creates new neural pathways.",
+                week2: "Savoring is the deliberate act of stepping outside an experience to appreciate and amplify it. Neuroscience research shows that savoring activates the brain's reward centers and strengthens positive memory formation. Techniques include sharing the moment with others, taking mental photographs, congratulating yourself on your good fortune, and sharpening sensory perception. Gratitude journaling rewires your brain's negativity bias by training it to scan for positive experiences. The practice is most effective when you relive the feeling of gratitude while writing, not just listing items mechanically.",
+                week3: "Altruism and social connection are among the strongest predictors of happiness across cultures. Studies show that spending money on others produces more happiness than spending on yourself. Even brief social interactions with strangers boost mood and wellbeing. Deep relationships provide emotional support, increase life satisfaction, and even improve physical health. The quality of connections matters more than quantity—one hour of meaningful conversation can be more valuable than many superficial interactions.",
+                week4: "Exercise is as effective as antidepressant medication for treating mild to moderate depression. Physical activity releases endorphins, reduces stress hormones, and promotes neuroplasticity. Just 30 minutes of moderate exercise can improve mood for up to 12 hours. Sleep deprivation severely impairs emotional regulation, decision-making, and memory consolidation. Quality sleep allows your brain to process emotions, consolidate learning, and restore cognitive function. Seven to nine hours is optimal for most adults.",
+                week5: "Meditation builds your attention muscle and reduces mind-wandering, which research links to unhappiness. Regular practice literally changes brain structure, increasing gray matter in areas associated with learning, memory, and emotional regulation. The 'bringing back' when your mind wanders is the actual practice—it's not a failure but the core exercise. A gratitude letter creates a powerful emotional experience for both writer and recipient. Research shows that expressing gratitude to someone who changed your life can boost happiness for an entire month.",
+                phase3: "Neuroplasticity—your brain's ability to rewire itself—requires consistent practice over time. Four weeks of daily practice is enough to begin forming new neural pathways and habits. The WOOP method (Wish, Outcome, Obstacle, Plan) combines positive thinking with realistic obstacle planning, making it more effective than positive thinking alone. Implementation intentions ('if-then' plans) double your chances of following through on goals by creating automatic behavioral responses to specific triggers.",
+                phase4: "Comparing your final scores to your baseline reveals your growth trajectory. Research shows that even small improvements in wellbeing metrics correlate with significant life changes. The practices you've learned aren't just temporary interventions—they're skills you can use for life. Studies of course participants show that benefits persist and even grow over time when practices are maintained. Your brain has literally changed through this journey, creating new patterns of thinking and behaving that support lasting happiness."
+            };
+
+            // Add completion buttons, Learn/Track toggles, and varied colors
+            const labelColors = {
+                phase1: '', week1: 'pink', week2: 'mustard', week3: 'purple',
+                week4: 'green', week5: 'orange', phase3: 'blue', phase4: 'teal'
+            };
+
+            document.querySelectorAll('section[id]').forEach(section => {
+                const card = section.querySelector('.card');
+                if (!card) return;
+
+                const sectionId = section.id;
+                const content = card.querySelector('.card-content');
+                if (!content) return;
+
+                // Apply label color
+                const label = card.querySelector('.label');
+                if (label && labelColors[sectionId]) {
+                    label.classList.add(labelColors[sectionId]);
+                }
+
+                // Add completion button
+                const completeBtn = document.createElement('button');
+                completeBtn.className = 'complete-btn';
+                completeBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Mark as Completed';
+                completeBtn.dataset.section = sectionId;
+
+                // Check if already completed
+                if (data[`completed_${sectionId}`]) {
+                    card.classList.add('completed');
+                    completeBtn.classList.add('completed');
+                    completeBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Completed';
+                    document.querySelector(`a[data-section="${sectionId}"]`)?.classList.add('completed');
+                }
+
+                completeBtn.addEventListener('click', () => {
+                    const isCompleted = card.classList.toggle('completed');
+                    completeBtn.classList.toggle('completed');
+                    completeBtn.innerHTML = isCompleted ?
+                        '<svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Completed' :
+                        '<svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Mark as Completed';
+
+                    const d = loadData();
+                    d[`completed_${sectionId}`] = isCompleted;
+                    saveData(d);
+
+                    const navLink = document.querySelector(`a[data-section="${sectionId}"]`);
+                    if (navLink) navLink.classList.toggle('completed', isCompleted);
+                });
+
+                // Add Learn/Track toggle if there's educational content
+                if (learnContent[sectionId]) {
+                    const toggle = document.createElement('div');
+                    toggle.className = 'mode-toggle';
+                    toggle.innerHTML = `
+                        <button class="active" data-mode="track">Track</button>
+                        <button data-mode="learn">Learn</button>
+                    `;
+
+                    const learnDiv = document.createElement('div');
+                    learnDiv.className = 'learn-content';
+                    learnDiv.innerHTML = `<p>${learnContent[sectionId]}</p>`;
+
+                    const trackDiv = document.createElement('div');
+                    trackDiv.className = 'track-content';
+                    Array.from(content.children).forEach(child => trackDiv.appendChild(child.cloneNode(true)));
+
+                    content.innerHTML = '';
+                    content.appendChild(completeBtn);
+                    content.appendChild(toggle);
+                    content.appendChild(trackDiv);
+                    content.appendChild(learnDiv);
+
+                    toggle.querySelectorAll('button').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            toggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                            btn.classList.add('active');
+                            const mode = btn.dataset.mode;
+                            trackDiv.classList.toggle('hidden', mode === 'learn');
+                            learnDiv.classList.toggle('active', mode === 'learn');
+                        });
+                    });
+                } else {
+                    content.insertBefore(completeBtn, content.firstChild);
+                }
+            });
+
             // Load inputs
             document.querySelectorAll('input[data-key], textarea[data-key]').forEach(el => {
                 if (data[el.dataset.key] !== undefined) el.value = data[el.dataset.key];
@@ -1405,13 +1683,23 @@
         function printReport() {
             const d = loadData();
             const v = k => d[k] || '-';
-            const diff = (b, f) => { const bv = parseFloat(d[b]), fv = parseFloat(d[f]); if (isNaN(bv) || isNaN(fv)) return '-'; const df = fv - bv; return df > 0 ? `<span class="positive">+${df}</span>` : df < 0 ? `<span class="negative">${df}</span>` : '0'; };
+            const diff = (b, f) => {
+                const bv = parseFloat(d[b]), fv = parseFloat(d[f]);
+                if (isNaN(bv) || isNaN(fv)) return '-';
+                const df = fv - bv;
+                return df > 0 ? `<span class="positive">+${df.toFixed(1)}</span>` :
+                    df < 0 ? `<span class="negative">${df.toFixed(1)}</span>` : '0';
+            };
             const strip = '<div class="print-strip"><span></span><span></span><span></span><span></span><span></span></div>';
-            const trackerHTML = (key, days = 7) => { let h = '<div class="tracker-grid">'; for (let i = 1; i <= days; i++) h += `<div class="tracker-day ${d[key + '_' + i] ? 'done' : ''}">${i}</div>`; return h + '</div>'; };
+            const trackerHTML = (key, days = 7) => {
+                let h = '<div class="tracker-grid">';
+                for (let i = 1; i <= days; i++) h += `<div class="tracker-day ${d[key + '_' + i] ? 'done' : ''}">${i}</div>`;
+                return h + '</div>';
+            };
 
-            const page1 = `<div class="print-page">${strip}<h1>Rewirement Report</h1><p class="print-subtitle">Your 10-Week Wellbeing Journey</p>
+            const page1 = `<div class="print-page">${strip}<h1>Rewirement Report</h1><p class="print-subtitle">10-Week Wellbeing Journey</p>
                 <h2>PERMA Comparison</h2>
-                <table class="comparison-table"><tr><th>Metric</th><th>Baseline</th><th>Final</th><th>Change</th></tr>
+                <table class="comparison-table"><tr><th>Metric</th><th>Start</th><th>End</th><th>Δ</th></tr>
                 <tr><td>Positive Emotions</td><td>${v('baseline_p')}</td><td>${v('final_p')}</td><td>${diff('baseline_p', 'final_p')}</td></tr>
                 <tr><td>Engagement</td><td>${v('baseline_e')}</td><td>${v('final_e')}</td><td>${diff('baseline_e', 'final_e')}</td></tr>
                 <tr><td>Relationships</td><td>${v('baseline_r')}</td><td>${v('final_r')}</td><td>${diff('baseline_r', 'final_r')}</td></tr>
@@ -1420,36 +1708,52 @@
                 <tr><td>Health</td><td>${v('baseline_health')}</td><td>${v('final_health')}</td><td>${diff('baseline_health', 'final_health')}</td></tr>
                 <tr><td>Negative Emotions</td><td>${v('baseline_neg')}</td><td>${v('final_neg')}</td><td>${diff('baseline_neg', 'final_neg')}</td></tr>
                 <tr><td>Loneliness</td><td>${v('baseline_lonely')}</td><td>${v('final_lonely')}</td><td>${diff('baseline_lonely', 'final_lonely')}</td></tr>
-                <tr><td><strong>Overall Well-Being</strong></td><td><strong>${v('baseline_overall')}</strong></td><td><strong>${v('final_overall')}</strong></td><td>${diff('baseline_overall', 'final_overall')}</td></tr></table>
-                <h2>My Signature Strengths</h2>
-                <p class="inline-data">1. ${v('strength_1')} &nbsp; 2. ${v('strength_2')} &nbsp; 3. ${v('strength_3')} &nbsp; 4. ${v('strength_4')}</p>
-                <h2>Final Challenge Plan (WOOP)</h2>
-                <p class="inline-data"><strong>Chosen Rewirement:</strong> ${v('chosen_rewirement')}</p>
-                <p class="inline-data"><strong>Wish:</strong> ${v('woop_wish')}</p>
-                <p class="inline-data"><strong>Outcome:</strong> ${v('woop_outcome')}</p>
-                <p class="inline-data"><strong>Obstacle:</strong> ${v('woop_obstacle')}</p>
-                <p class="inline-data"><strong>Plan:</strong> ${v('woop_plan')}</p>
-                <div class="footer">Rewirement - Page 1 of 3</div></div>`;
+                <tr><td><strong>Overall</strong></td><td><strong>${v('baseline_overall')}</strong></td><td><strong>${v('final_overall')}</strong></td><td>${diff('baseline_overall', 'final_overall')}</td></tr></table>
+                <h2>Signature Strengths & WOOP Plan</h2>
+                <div class="data-row">
+                    <div class="data-item"><strong>Strength 1:</strong> ${v('strength_1')}</div>
+                    <div class="data-item"><strong>Strength 2:</strong> ${v('strength_2')}</div>
+                    <div class="data-item"><strong>Strength 3:</strong> ${v('strength_3')}</div>
+                    <div class="data-item"><strong>Strength 4:</strong> ${v('strength_4')}</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-item"><strong>Chosen Rewirement:</strong> ${v('chosen_rewirement')}</div>
+                    <div class="data-item"><strong>Wish:</strong> ${v('woop_wish')}</div>
+                    <div class="data-item"><strong>Outcome:</strong> ${v('woop_outcome')}</div>
+                    <div class="data-item"><strong>Obstacle:</strong> ${v('woop_obstacle')}</div>
+                </div>
+                <p class="inline-data"><strong>If-Then Plan:</strong> ${v('woop_plan')}</p>
+                <div class="footer">Rewirement Report - Page 1 of 3</div></div>`;
 
-            const page2 = `<div class="print-page">${strip}<h1>Weekly Progress</h1>
-                <div class="week-section"><div class="week-title">Week 1: Signature Strengths</div>${trackerHTML('w1_strengths')}</div>
-                <div class="week-section"><div class="week-title">Week 2: Savoring</div>${trackerHTML('w2_savor')}</div>
-                <div class="week-section"><div class="week-title">Week 2: Gratitude Journal</div>${trackerHTML('w2_gratitude')}</div>
-                <div class="week-section"><div class="week-title">Week 3: Kindness</div>${trackerHTML('w3_kindness')}</div>
-                <div class="week-section"><div class="week-title">Week 3: Social Connection</div>${trackerHTML('w3_connection')}</div>
-                <div class="week-section"><div class="week-title">Week 4: Exercise</div>${trackerHTML('w4_exercise')}</div>
-                <div class="week-section"><div class="week-title">Week 4: Sleep</div>${trackerHTML('w4_sleep')}</div>
-                <div class="week-section"><div class="week-title">Week 5: Meditation</div>${trackerHTML('w5_meditation')}</div>
-                <div class="week-section"><div class="week-title">Gratitude Letter Delivered</div><p class="inline-data">${d['letter_delivered'] ? 'Yes' : 'Not yet'}</p></div>
-                <div class="footer">Rewirement - Page 2 of 3</div></div>`;
+            const page2 = `<div class="print-page">${strip}<h1>Weekly Trackers</h1>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm;">
+                    <div><h3>Week 1: Signature Strengths</h3>${trackerHTML('w1_strengths')}</div>
+                    <div><h3>Week 2: Savoring</h3>${trackerHTML('w2_savor')}</div>
+                    <div><h3>Week 2: Gratitude</h3>${trackerHTML('w2_gratitude')}</div>
+                    <div><h3>Week 3: Kindness</h3>${trackerHTML('w3_kindness')}</div>
+                    <div><h3>Week 3: Connection</h3>${trackerHTML('w3_connection')}</div>
+                    <div><h3>Week 4: Exercise</h3>${trackerHTML('w4_exercise')}</div>
+                    <div><h3>Week 4: Sleep (7+ hrs)</h3>${trackerHTML('w4_sleep')}</div>
+                    <div><h3>Week 5: Meditation</h3>${trackerHTML('w5_meditation')}</div>
+                </div>
+                <h3 style="margin-top:4mm;">Gratitude Letter Status</h3>
+                <p class="inline-data">${d['letter_delivered'] ? '✓ Delivered to recipient' : '○ Not yet delivered'}</p>
+                <div class="footer">Rewirement Report - Page 2 of 3</div></div>`;
 
             const page3 = `<div class="print-page">${strip}<h1>Final Challenge</h1><p class="print-subtitle">4-Week Mastery Tracker</p>
-                <h2>Week 1</h2>${trackerHTML('final_w1')}
-                <h2>Week 2</h2><div class="tracker-grid">${[8, 9, 10, 11, 12, 13, 14].map(i => `<div class="tracker-day ${d['final_w2_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div>
-                <h2>Week 3</h2><div class="tracker-grid">${[15, 16, 17, 18, 19, 20, 21].map(i => `<div class="tracker-day ${d['final_w3_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div>
-                <h2>Week 4</h2><div class="tracker-grid">${[22, 23, 24, 25, 26, 27, 28].map(i => `<div class="tracker-day ${d['final_w4_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div>
-                <h3>Gratitude Letter</h3><p style="font-size:9pt;border:1px solid #529294;padding:3mm;max-height:60mm;overflow:hidden;">${v('gratitude_letter').substring(0, 500) || 'No letter written yet.'}</p>
-                <div class="footer">Rewirement - Page 3 of 3</div></div>`;
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm;">
+                    <div><h3>Week 1 (Days 1-7)</h3>${trackerHTML('final_w1')}</div>
+                    <div><h3>Week 2 (Days 8-14)</h3><div class="tracker-grid">${[8, 9, 10, 11, 12, 13, 14].map(i => `<div class="tracker-day ${d['final_w2_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div></div>
+                    <div><h3>Week 3 (Days 15-21)</h3><div class="tracker-grid">${[15, 16, 17, 18, 19, 20, 21].map(i => `<div class="tracker-day ${d['final_w3_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div></div>
+                    <div><h3>Week 4 (Days 22-28)</h3><div class="tracker-grid">${[22, 23, 24, 25, 26, 27, 28].map(i => `<div class="tracker-day ${d['final_w4_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div></div>
+                </div>
+                <h2 style="margin-top:6mm;">Gratitude Letter Excerpt</h2>
+                <div style="font-size:8pt;border:1px solid #529294;padding:3mm;max-height:50mm;overflow:hidden;line-height:1.5;">
+                    ${v('gratitude_letter').substring(0, 600) || 'No letter written yet. This powerful exercise involves writing to someone who changed your life.'}
+                </div>
+                <h3 style="margin-top:4mm;">Journey Summary</h3>
+                <p class="inline-data" style="line-height:1.6;">Congratulations on completing this transformative journey! You've engaged with evidence-based practices designed to rewire your brain for lasting happiness. Continue these habits to maintain and grow your wellbeing gains.</p>
+                <div class="footer">Rewirement Report - Page 3 of 3</div></div>`;
 
             document.getElementById('printReport').innerHTML = page1 + page2 + page3;
             setTimeout(() => window.print(), 100);
