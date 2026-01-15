@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Rewirement - A 10-week wellbeing initiative based on Yale's Science of Well-Being">
+    <meta name="theme-color" content="#E5E0D4">
+    <title>Rewirement | 10-Week Wellbeing Journey</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #E5E0D4;
+            --card-bg: #F1EDE4;
+            --text: #2B2B2B;
+            --rust: #BC4639;
+            --mustard: #D5A04A;
+            --teal: #529294;
+            --strip-1: #BC4639;
+            --strip-2: #8BB9C0;
+            --strip-3: #D5A04A;
+            --strip-4: #6B665E;
+            --strip-5: #7E5A7E;
+            --font-header: 'Space Grotesk', sans-serif;
+            --font-body: 'IBM Plex Mono', monospace;
+            --radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --card-bg: #252525;
+            --text: #e0e0e0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="amoled"] {
+            --bg: #000000;
+            --card-bg: #0a0a0a;
+            --text: #ffffff;
+            --shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .accent-strip {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            display: flex;
+            z-index: 1000;
+        }
+
+        .accent-strip span {
+            flex: 1;
+        }
+
+        .accent-strip span:nth-child(1) {
+            background: var(--strip-1);
+        }
+
+        .accent-strip span:nth-child(2) {
+            background: var(--strip-2);
+        }
+
+        .accent-strip span:nth-child(3) {
+            background: var(--strip-3);
+        }
+
+        .accent-strip span:nth-child(4) {
+            background: var(--strip-4);
+        }
+
+        .accent-strip span:nth-child(5) {
+            background: var(--strip-5);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            padding-top: 50px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--teal);
+        }
+
+        h1 {
+            font-family: var(--font-header);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--text);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 30px;
+            height: 2px;
+            background: var(--teal);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 2px;
+            height: 30px;
+            background: var(--teal);
+        }
+
+        .card-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            user-select: none;
+        }
+
+        .card-header .chevron {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .card.collapsed .chevron {
+            transform: rotate(-90deg);
+        }
+
+        .card-content {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+            opacity: 1;
+        }
+
+        .card.collapsed .card-content {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-family: var(--font-header);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h3 {
+            font-family: var(--font-header);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 20px 0 12px;
+        }
+
+        .label {
+            display: inline-block;
+            background: var(--rust);
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transform: rotate(-1deg);
+            margin-bottom: 12px;
+        }
+
+        .label.teal {
+            background: var(--teal);
+        }
+
+        .label.mustard {
+            background: var(--mustard);
+            color: var(--text);
+        }
+
+        .info-box {
+            background: rgba(82, 146, 148, 0.1);
+            border-left: 3px solid var(--teal);
+            padding: 16px;
+            margin: 16px 0;
+            font-size: 0.95rem;
+        }
+
+        .tip-box {
+            background: rgba(213, 160, 74, 0.1);
+            border-left: 3px solid var(--mustard);
+            padding: 16px;
+            margin: 16px 0;
+            font-size: 0.95rem;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--text), transparent);
+            opacity: 0.2;
+            margin: 40px 0;
+        }
+
+        .tracker {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .tracker-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tracker-item span {
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+
+        .toggle {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--text);
+            border-radius: 8px;
+            background: var(--card-bg);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .toggle.active {
+            background: var(--teal);
+            border-color: var(--teal);
+        }
+
+        .toggle.active::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--text);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin: 8px 0;
+            transition: box-shadow 0.2s;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(82, 146, 148, 0.3);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .score-grid label {
+            font-size: 0.95rem;
+        }
+
+        .score-input {
+            width: 70px !important;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: 2px solid var(--text);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .btn.primary {
+            background: var(--teal);
+            border-color: var(--teal);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background: #3d7072;
+            border-color: #3d7072;
+        }
+
+        .toolbar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .toolbar .btn {
+            padding: 12px;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            justify-content: center;
+        }
+
+        .theme-selector {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .theme-btn {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--text);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-btn.light {
+            background: #E5E0D4;
+        }
+
+        .theme-btn.dark {
+            background: #1a1a1a;
+        }
+
+        .theme-btn.amoled {
+            background: #000000;
+        }
+
+        .theme-btn.active {
+            box-shadow: 0 0 0 3px var(--teal);
+        }
+
+        .local-notice {
+            background: rgba(82, 146, 148, 0.15);
+            border: 1px dashed var(--teal);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            padding: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--text);
+            border-radius: var(--radius);
+        }
+
+        .nav a {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover {
+            border-color: var(--text);
+            background: var(--bg);
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .deco-line {
+            position: absolute;
+            background: var(--teal);
+            opacity: 0.3;
+        }
+
+        .deco-h {
+            width: 40px;
+            height: 1px;
+        }
+
+        .deco-v {
+            width: 1px;
+            height: 40px;
+        }
+
+        .easter-egg {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px dashed rgba(43, 43, 43, 0.2);
+        }
+
+        .easter-btn {
+            background: transparent;
+            border: none;
+            font-size: 0.7rem;
+            opacity: 0.3;
+            cursor: pointer;
+            font-family: var(--font-body);
+            color: var(--text);
+        }
+
+        .easter-btn:hover {
+            opacity: 0.6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--text);
+            border-radius: var(--radius);
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 16px;
+        }
+
+        .modal-content p {
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 30px 16px;
+                padding-top: 40px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .tracker {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 4px;
+            }
+
+            .toggle {
+                width: 32px;
+                height: 32px;
+            }
+
+            .toolbar {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .theme-selector {
+                bottom: 10px;
+                left: 10px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white !important;
+            }
+
+            .toolbar,
+            .theme-selector,
+            .easter-egg,
+            .nav,
+            .local-notice {
+                display: none !important;
+            }
+
+            .accent-strip {
+                position: relative;
+            }
+
+            .card {
+                break-inside: avoid;
+                border: 1px solid #529294;
+            }
+
+            h1,
+            h2,
+            h3 {
+                color: #529294 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="accent-strip">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Rewirement</h1>
+            <p class="subtitle">A 10-Week Science of Well-Being Journey</p>
+        </header>
+
+        <div class="local-notice">
+            <svg class="icon" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span>Your data is saved locally in your browser for maximum privacy and convenience.</span>
+        </div>
+
+        <nav class="nav">
+            <a href="#phase1">Phase 1: Baseline</a>
+            <a href="#week1">Week 1</a>
+            <a href="#week2">Week 2</a>
+            <a href="#week3">Week 3</a>
+            <a href="#week4">Week 4</a>
+            <a href="#week5">Week 5</a>
+            <a href="#phase3">Phase 3: Final</a>
+            <a href="#phase4">Results</a>
+        </nav>
+
+        <!-- Phase 1 -->
+        <section id="phase1">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <span class="label">PHASE 1</span>
+                        <h2>
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M3 3v18h18" />
+                                <path d="M18 17V9" />
+                                <path d="M13 17V5" />
+                                <path d="M8 17v-3" />
+                            </svg>
+                            Baseline Measurement
+                        </h2>
+                    </div>
+                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <p>Week 1 - Starting Point</p>
+                    <div class="info-box"><strong>Measuring Happiness</strong><br>Establish a baseline using a validated
+                        scale. The goal is to have a concrete "before" number to compare with your "after" result in
+                        Week 10.</div>
+                    <div class="tip-box"><strong>The PERMA Model</strong><br>Happiness is broken into 5
+                        pillars:<br><strong>P</strong>ositive Emotions | <strong>E</strong>ngagement |
+                        <strong>R</strong>elationships | <strong>M</strong>eaning | <strong>A</strong>ccomplishment
+                    </div>
+                    <a href="https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_dmWAB2LoFzOk25n" target="_blank"
+                        class="btn primary" style="margin: 16px 0;"><svg class="icon" viewBox="0 0 24 24">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>Take PERMA Profiler</a>
+                    <h3>Baseline Scores (0-10)</h3>
+                    <div class="score-grid">
+                        <label>Positive Emotions</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_p">
+                        <label>Engagement</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_e">
+                        <label>Relationships</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_r">
+                        <label>Meaning</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_m">
+                        <label>Accomplishment</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_a">
+                        <label>Health</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_health">
+                        <label>Negative Emotions</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_neg">
+                        <label>Loneliness</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_lonely">
+                        <label>Overall Well-Being</label><input type="number" class="score-input" min="0" max="10"
+                            data-key="baseline_overall">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Week 1 -->
+        <section id="week1">
+            <div class="card">
+                <span class="label teal">WEEK 1</span>
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                    Signature Strengths
+                </h2>
+
+                <div class="tip-box">
+                    Your "Signature Strengths" are character traits most essential to who you are (e.g., curiosity,
+                    kindness, bravery).<br><br>
+                    <strong>Challenge:</strong> Identify your top 4 strengths and use one in a NEW way every day.
+                </div>
+
+                <h3>My Top 4 Strengths</h3>
+                <input type="text" placeholder="Strength 1" data-key="strength_1">
+                <input type="text" placeholder="Strength 2" data-key="strength_2">
+                <input type="text" placeholder="Strength 3" data-key="strength_3">
+                <input type="text" placeholder="Strength 4" data-key="strength_4">
+
+                <h3>Used a strength in a new way</h3>
+                <div class="tracker" data-tracker="w1_strengths">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>Day 1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>Day 2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>Day 3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>Day 4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>Day 5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>Day 6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>Day 7</span></div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Week 2 -->
+        <section id="week2">
+            <div class="card">
+                <span class="label mustard">WEEK 2</span>
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                    Savoring & Gratitude
+                </h2>
+
+                <div class="tip-box">
+                    <strong>Savoring:</strong> Step outside an experience to appreciate it. Share it, take a mental
+                    photo, congratulate yourself, or focus on sensory details.
+                </div>
+
+                <div class="tip-box">
+                    <strong>Gratitude:</strong> Rewires your brain to scan for the positive. Write 5 things you're
+                    grateful for each night. Relive the feeling as you write.
+                </div>
+
+                <h3>Savored an experience</h3>
+                <div class="tracker" data-tracker="w2_savor">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>Day 1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>Day 2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>Day 3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>Day 4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>Day 5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>Day 6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>Day 7</span></div>
+                </div>
+
+                <h3>Gratitude Journal (5 things written)</h3>
+                <div class="tracker" data-tracker="w2_gratitude">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>Day 1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>Day 2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>Day 3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>Day 4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>Day 5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>Day 6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>Day 7</span></div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Week 3 -->
+        <section id="week3">
+            <div class="card">
+                <span class="label">WEEK 3</span>
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    Kindness & Connection
+                </h2>
+
+                <div class="tip-box">
+                    <strong>Kindness:</strong> Happy people are altruistic. Doing for others boosts your mood more than
+                    doing for yourself. Perform 7 acts of kindness this week.
+                </div>
+
+                <div class="tip-box">
+                    <strong>Social Connection:</strong> The strongest predictor of happiness. Make one new connection
+                    per day. Spend an hour connecting deeply with someone you care about.
+                </div>
+
+                <h3>Performed an act of kindness</h3>
+                <div class="tracker" data-tracker="w3_kindness">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>Day 1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>Day 2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>Day 3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>Day 4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>Day 5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>Day 6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>Day 7</span></div>
+                </div>
+
+                <h3>Made a social connection</h3>
+                <div class="tracker" data-tracker="w3_connection">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>Day 1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>Day 2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>Day 3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>Day 4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>Day 5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>Day 6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>Day 7</span></div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Week 4 -->
+        <section id="week4">
+            <div class="card">
+                <span class="label teal">WEEK 4</span>
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                        <line x1="6" y1="1" x2="6" y2="4" />
+                        <line x1="10" y1="1" x2="10" y2="4" />
+                        <line x1="14" y1="1" x2="14" y2="4" />
+                    </svg>
+                    Exercise & Sleep
+                </h2>
+
+                <div class="tip-box">
+                    <strong>Exercise:</strong> A potent antidepressant. Move for at least 30 minutes daily. Walking,
+                    yoga, dancing - anything that gets your heart rate up.
+                </div>
+
+                <div class="tip-box">
+                    <strong>Sleep:</strong> Get at least 7 hours for 4 nights. No screens 30 mins before bed, no
+                    caffeine after 2 PM, dark and cool room.
+                </div>
+
+                <h3>30+ mins exercise</h3>
+                <div class="tracker" data-tracker="w4_exercise">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>Day 1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>Day 2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>Day 3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>Day 4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>Day 5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>Day 6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>Day 7</span></div>
+                </div>
+
+                <h3>Got 7+ hours sleep</h3>
+                <div class="tracker" data-tracker="w4_sleep">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>Day 1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>Day 2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>Day 3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>Day 4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>Day 5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>Day 6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>Day 7</span></div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Week 5 -->
+        <section id="week5">
+            <div class="card">
+                <span class="label mustard">WEEK 5</span>
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4" />
+                        <path d="M12 8h.01" />
+                    </svg>
+                    Meditation & Gratitude Letter
+                </h2>
+
+                <div class="tip-box">
+                    <strong>Meditation:</strong> Builds attention muscle. Meditate 10 minutes daily. Focus on breath,
+                    gently bring mind back when it wanders.
+                </div>
+
+                <div class="tip-box">
+                    <strong>Gratitude Letter:</strong> Write 300+ words to someone who changed your life but whom you
+                    never properly thanked. Read it to them in person or on a call.
+                </div>
+
+                <h3>Meditated 10+ mins</h3>
+                <div class="tracker" data-tracker="w5_meditation">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>Day 1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>Day 2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>Day 3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>Day 4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>Day 5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>Day 6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>Day 7</span></div>
+                </div>
+
+                <h3>Gratitude Letter Draft</h3>
+                <textarea placeholder="Write your letter here..." data-key="gratitude_letter"></textarea>
+
+                <div style="margin-top: 16px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <button class="toggle" data-key="letter_delivered" style="width: 28px; height: 28px;"></button>
+                        <span>I have delivered/read this letter to the person</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Phase 3 -->
+        <section id="phase3">
+            <div class="card">
+                <span class="label">PHASE 3</span>
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                    </svg>
+                    The Final Challenge
+                </h2>
+                <p>Weeks 6-10: Pick ONE habit to master over 4 weeks.</p>
+
+                <div class="info-box">
+                    <strong>WOOP Your Goal:</strong><br>
+                    <strong>W</strong>ish - What do you want?<br>
+                    <strong>O</strong>utcome - How will it feel?<br>
+                    <strong>O</strong>bstacle - What inner thought stops you?<br>
+                    <strong>P</strong>lan - If [obstacle], then I will [action].
+                </div>
+
+                <h3>My Plan</h3>
+                <input type="text" placeholder="My Chosen Rewirement (e.g., Daily Meditation)"
+                    data-key="chosen_rewirement">
+                <input type="text" placeholder="Wish - What do you want?" data-key="woop_wish">
+                <input type="text" placeholder="Outcome - How will it feel?" data-key="woop_outcome">
+                <input type="text" placeholder="Obstacle - What inner thought stops you?" data-key="woop_obstacle">
+                <input type="text" placeholder="Plan - If obstacle, then I will..." data-key="woop_plan">
+
+                <h3>4-Week Tracker</h3>
+
+                <h4 style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">Week 1</h4>
+                <div class="tracker" data-tracker="final_w1">
+                    <div class="tracker-item"><button class="toggle" data-day="1"></button><span>D1</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="2"></button><span>D2</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="3"></button><span>D3</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="4"></button><span>D4</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="5"></button><span>D5</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="6"></button><span>D6</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="7"></button><span>D7</span></div>
+                </div>
+
+                <h4 style="margin-top: 16px; font-size: 0.9rem; opacity: 0.7;">Week 2</h4>
+                <div class="tracker" data-tracker="final_w2">
+                    <div class="tracker-item"><button class="toggle" data-day="8"></button><span>D8</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="9"></button><span>D9</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="10"></button><span>D10</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="11"></button><span>D11</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="12"></button><span>D12</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="13"></button><span>D13</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="14"></button><span>D14</span></div>
+                </div>
+
+                <h4 style="margin-top: 16px; font-size: 0.9rem; opacity: 0.7;">Week 3</h4>
+                <div class="tracker" data-tracker="final_w3">
+                    <div class="tracker-item"><button class="toggle" data-day="15"></button><span>D15</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="16"></button><span>D16</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="17"></button><span>D17</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="18"></button><span>D18</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="19"></button><span>D19</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="20"></button><span>D20</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="21"></button><span>D21</span></div>
+                </div>
+
+                <h4 style="margin-top: 16px; font-size: 0.9rem; opacity: 0.7;">Week 4</h4>
+                <div class="tracker" data-tracker="final_w4">
+                    <div class="tracker-item"><button class="toggle" data-day="22"></button><span>D22</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="23"></button><span>D23</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="24"></button><span>D24</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="25"></button><span>D25</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="26"></button><span>D26</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="27"></button><span>D27</span></div>
+                    <div class="tracker-item"><button class="toggle" data-day="28"></button><span>D28</span></div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Phase 4 -->
+        <section id="phase4">
+            <div class="card">
+                <span class="label teal">PHASE 4</span>
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    Final Measurement
+                </h2>
+                <p>Week 10 - Compare to baseline to see your growth.</p>
+
+                <a href="https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_dmWAB2LoFzOk25n" target="_blank"
+                    class="btn primary" style="margin: 16px 0;">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    Retake PERMA Profiler
+                </a>
+
+                <h3>Final Scores (0-10)</h3>
+                <div class="score-grid">
+                    <label>Positive Emotions</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_p">
+                    <label>Engagement</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_e">
+                    <label>Relationships</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_r">
+                    <label>Meaning</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_m">
+                    <label>Accomplishment</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_a">
+                    <label>Health</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_health">
+                    <label>Negative Emotions</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_neg">
+                    <label>Loneliness</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_lonely">
+                    <label>Overall Well-Being</label>
+                    <input type="number" class="score-input" min="0" max="10" data-key="final_overall">
+                </div>
+            </div>
+        </section>
+
+        <!-- Easter Egg -->
+        <div class="easter-egg">
+            <button class="easter-btn"
+                onclick="document.getElementById('easterModal').classList.add('open')">...</button>
+        </div>
+    </div>
+
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+        <button class="theme-btn light active" data-theme="light" title="Light Theme"></button>
+        <button class="theme-btn dark" data-theme="dark" title="Dark Theme"></button>
+        <button class="theme-btn amoled" data-theme="amoled" title="AMOLED Theme"></button>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <button class="btn" onclick="printReport()" title="Print Report">
+            <svg class="icon" viewBox="0 0 24 24">
+                <polyline points="6 9 6 2 18 2 18 9" />
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                <rect x="6" y="14" width="12" height="8" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Easter Egg Modal -->
+    <div class="modal" id="easterModal">
+        <div class="modal-content">
+            <h3>Did this help you?</h3>
+            <p>I'm collecting quotes from people who benefitted from this journey. Share your experience!</p>
+            <a href="https://t.me/okayloy" target="_blank" class="btn primary">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path
+                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                </svg>
+                Message on Telegram
+            </a>
+            <br><br>
+            <button class="btn" onclick="document.getElementById('easterModal').classList.remove('open')">Close</button>
+        </div>
+    </div>
+
+    <!-- Print Container (hidden on screen, shown when printing) -->
+    <div id="printReport" class="print-report"></div>
+
+    <style id="printStyles">
+        .print-report {
+            display: none;
+        }
+
+        @media print {
+            body>*:not(.print-report) {
+                display: none !important;
+            }
+
+            .print-report {
+                display: block !important;
+                font-family: 'IBM Plex Mono', monospace;
+                color: #2B2B2B;
+                font-size: 11pt;
+            }
+
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+
+            .print-report .print-strip {
+                display: flex;
+                height: 8px;
+                margin-bottom: 20px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-report .print-strip span {
+                flex: 1;
+            }
+
+            .print-report .print-strip span:nth-child(1) {
+                background: #BC4639;
+            }
+
+            .print-report .print-strip span:nth-child(2) {
+                background: #8BB9C0;
+            }
+
+            .print-report .print-strip span:nth-child(3) {
+                background: #D5A04A;
+            }
+
+            .print-report .print-strip span:nth-child(4) {
+                background: #6B665E;
+            }
+
+            .print-report .print-strip span:nth-child(5) {
+                background: #7E5A7E;
+            }
+
+            .print-report .print-page {
+                page-break-after: always;
+                min-height: 250mm;
+                position: relative;
+            }
+
+            .print-report .print-page:last-child {
+                page-break-after: avoid;
+            }
+
+            .print-report h1 {
+                color: #529294;
+                font-size: 28pt;
+                text-align: center;
+                margin: 0 0 5mm;
+                font-family: 'Space Grotesk', sans-serif;
+            }
+
+            .print-report .print-subtitle {
+                text-align: center;
+                font-size: 12pt;
+                margin-bottom: 15mm;
+                opacity: 0.7;
+            }
+
+            .print-report h2 {
+                color: #529294;
+                font-size: 14pt;
+                border-bottom: 2px solid #529294;
+                padding-bottom: 2mm;
+                margin: 8mm 0 5mm;
+                font-family: 'Space Grotesk', sans-serif;
+            }
+
+            .print-report h3 {
+                color: #529294;
+                font-size: 11pt;
+                margin: 5mm 0 3mm;
+            }
+
+            .print-report .comparison-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 5mm 0;
+            }
+
+            .print-report .comparison-table th,
+            .print-report .comparison-table td {
+                border: 1px solid #529294;
+                padding: 3mm;
+                text-align: center;
+            }
+
+            .print-report .comparison-table th {
+                background: #529294;
+                color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-report .comparison-table .positive {
+                color: #2a7a2a;
+                font-weight: bold;
+            }
+
+            .print-report .comparison-table .negative {
+                color: #BC4639;
+            }
+
+            .print-report .tracker-grid {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 2mm;
+                margin: 3mm 0;
+            }
+
+            .print-report .tracker-day {
+                width: 100%;
+                aspect-ratio: 1;
+                border: 1px solid #529294;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 8pt;
+            }
+
+            .print-report .tracker-day.done {
+                background: #529294;
+                color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-report .week-section {
+                margin-bottom: 6mm;
+            }
+
+            .print-report .week-title {
+                font-weight: bold;
+                font-size: 10pt;
+                margin-bottom: 2mm;
+                color: #529294;
+            }
+
+            .print-report .inline-data {
+                font-size: 10pt;
+                margin: 2mm 0;
+            }
+
+            .print-report .footer {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                text-align: center;
+                font-size: 8pt;
+                opacity: 0.5;
+            }
+        }
+    </style>
+
+    <script>
+        const STORAGE_KEY = 'rewirement_data';
+        function loadData() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
+        function saveData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const data = loadData();
+
+            // Make ALL cards collapsible dynamically
+            document.querySelectorAll('.card').forEach(card => {
+                // Skip if already has card-header (Phase 1)
+                if (card.querySelector('.card-header')) {
+                    card.classList.add('collapsed');
+                    card.querySelector('.card-header').addEventListener('click', () => card.classList.toggle('collapsed'));
+                    return;
+                }
+
+                // Get the label and h2
+                const label = card.querySelector('.label');
+                const h2 = card.querySelector('h2');
+                if (!label || !h2) return;
+
+                // Create header wrapper
+                const header = document.createElement('div');
+                header.className = 'card-header';
+                header.innerHTML = `<div></div><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>`;
+                header.querySelector('div').appendChild(label.cloneNode(true));
+                header.querySelector('div').appendChild(h2.cloneNode(true));
+
+                // Create content wrapper
+                const content = document.createElement('div');
+                content.className = 'card-content';
+
+                // Move all children except label and h2 to content
+                const children = Array.from(card.children);
+                children.forEach(child => {
+                    if (child !== label && child !== h2) {
+                        content.appendChild(child);
+                    }
+                });
+
+                // Remove old label and h2
+                label.remove();
+                h2.remove();
+
+                // Add new structure
+                card.appendChild(header);
+                card.appendChild(content);
+                card.classList.add('collapsed');
+
+                header.addEventListener('click', () => card.classList.toggle('collapsed'));
+            });
+
+            // Load inputs
+            document.querySelectorAll('input[data-key], textarea[data-key]').forEach(el => {
+                if (data[el.dataset.key] !== undefined) el.value = data[el.dataset.key];
+                el.addEventListener('input', () => { const d = loadData(); d[el.dataset.key] = el.value; saveData(d); });
+            });
+
+            // Load toggles
+            document.querySelectorAll('.toggle[data-key]').forEach(el => {
+                if (data[el.dataset.key]) el.classList.add('active');
+                el.addEventListener('click', () => { el.classList.toggle('active'); const d = loadData(); d[el.dataset.key] = el.classList.contains('active'); saveData(d); });
+            });
+
+            // Load trackers
+            document.querySelectorAll('.tracker').forEach(tracker => {
+                tracker.querySelectorAll('.toggle').forEach(toggle => {
+                    const key = `${tracker.dataset.tracker}_${toggle.dataset.day}`;
+                    if (data[key]) toggle.classList.add('active');
+                    toggle.addEventListener('click', () => { toggle.classList.toggle('active'); const d = loadData(); d[key] = toggle.classList.contains('active'); saveData(d); });
+                });
+            });
+
+            // Theme
+            const theme = localStorage.getItem('rewirement_theme') || 'light';
+            document.documentElement.dataset.theme = theme;
+            document.querySelector(`.theme-btn[data-theme="${theme}"]`)?.classList.add('active');
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.documentElement.dataset.theme = btn.dataset.theme;
+                    localStorage.setItem('rewirement_theme', btn.dataset.theme);
+                });
+            });
+        });
+
+        function printReport() {
+            const d = loadData();
+            const v = k => d[k] || '-';
+            const diff = (b, f) => { const bv = parseFloat(d[b]), fv = parseFloat(d[f]); if (isNaN(bv) || isNaN(fv)) return '-'; const df = fv - bv; return df > 0 ? `<span class="positive">+${df}</span>` : df < 0 ? `<span class="negative">${df}</span>` : '0'; };
+            const strip = '<div class="print-strip"><span></span><span></span><span></span><span></span><span></span></div>';
+            const trackerHTML = (key, days = 7) => { let h = '<div class="tracker-grid">'; for (let i = 1; i <= days; i++) h += `<div class="tracker-day ${d[key + '_' + i] ? 'done' : ''}">${i}</div>`; return h + '</div>'; };
+
+            const page1 = `<div class="print-page">${strip}<h1>Rewirement Report</h1><p class="print-subtitle">Your 10-Week Wellbeing Journey</p>
+                <h2>PERMA Comparison</h2>
+                <table class="comparison-table"><tr><th>Metric</th><th>Baseline</th><th>Final</th><th>Change</th></tr>
+                <tr><td>Positive Emotions</td><td>${v('baseline_p')}</td><td>${v('final_p')}</td><td>${diff('baseline_p', 'final_p')}</td></tr>
+                <tr><td>Engagement</td><td>${v('baseline_e')}</td><td>${v('final_e')}</td><td>${diff('baseline_e', 'final_e')}</td></tr>
+                <tr><td>Relationships</td><td>${v('baseline_r')}</td><td>${v('final_r')}</td><td>${diff('baseline_r', 'final_r')}</td></tr>
+                <tr><td>Meaning</td><td>${v('baseline_m')}</td><td>${v('final_m')}</td><td>${diff('baseline_m', 'final_m')}</td></tr>
+                <tr><td>Accomplishment</td><td>${v('baseline_a')}</td><td>${v('final_a')}</td><td>${diff('baseline_a', 'final_a')}</td></tr>
+                <tr><td>Health</td><td>${v('baseline_health')}</td><td>${v('final_health')}</td><td>${diff('baseline_health', 'final_health')}</td></tr>
+                <tr><td>Negative Emotions</td><td>${v('baseline_neg')}</td><td>${v('final_neg')}</td><td>${diff('baseline_neg', 'final_neg')}</td></tr>
+                <tr><td>Loneliness</td><td>${v('baseline_lonely')}</td><td>${v('final_lonely')}</td><td>${diff('baseline_lonely', 'final_lonely')}</td></tr>
+                <tr><td><strong>Overall Well-Being</strong></td><td><strong>${v('baseline_overall')}</strong></td><td><strong>${v('final_overall')}</strong></td><td>${diff('baseline_overall', 'final_overall')}</td></tr></table>
+                <h2>My Signature Strengths</h2>
+                <p class="inline-data">1. ${v('strength_1')} &nbsp; 2. ${v('strength_2')} &nbsp; 3. ${v('strength_3')} &nbsp; 4. ${v('strength_4')}</p>
+                <h2>Final Challenge Plan (WOOP)</h2>
+                <p class="inline-data"><strong>Chosen Rewirement:</strong> ${v('chosen_rewirement')}</p>
+                <p class="inline-data"><strong>Wish:</strong> ${v('woop_wish')}</p>
+                <p class="inline-data"><strong>Outcome:</strong> ${v('woop_outcome')}</p>
+                <p class="inline-data"><strong>Obstacle:</strong> ${v('woop_obstacle')}</p>
+                <p class="inline-data"><strong>Plan:</strong> ${v('woop_plan')}</p>
+                <div class="footer">Rewirement - Page 1 of 3</div></div>`;
+
+            const page2 = `<div class="print-page">${strip}<h1>Weekly Progress</h1>
+                <div class="week-section"><div class="week-title">Week 1: Signature Strengths</div>${trackerHTML('w1_strengths')}</div>
+                <div class="week-section"><div class="week-title">Week 2: Savoring</div>${trackerHTML('w2_savor')}</div>
+                <div class="week-section"><div class="week-title">Week 2: Gratitude Journal</div>${trackerHTML('w2_gratitude')}</div>
+                <div class="week-section"><div class="week-title">Week 3: Kindness</div>${trackerHTML('w3_kindness')}</div>
+                <div class="week-section"><div class="week-title">Week 3: Social Connection</div>${trackerHTML('w3_connection')}</div>
+                <div class="week-section"><div class="week-title">Week 4: Exercise</div>${trackerHTML('w4_exercise')}</div>
+                <div class="week-section"><div class="week-title">Week 4: Sleep</div>${trackerHTML('w4_sleep')}</div>
+                <div class="week-section"><div class="week-title">Week 5: Meditation</div>${trackerHTML('w5_meditation')}</div>
+                <div class="week-section"><div class="week-title">Gratitude Letter Delivered</div><p class="inline-data">${d['letter_delivered'] ? 'Yes' : 'Not yet'}</p></div>
+                <div class="footer">Rewirement - Page 2 of 3</div></div>`;
+
+            const page3 = `<div class="print-page">${strip}<h1>Final Challenge</h1><p class="print-subtitle">4-Week Mastery Tracker</p>
+                <h2>Week 1</h2>${trackerHTML('final_w1')}
+                <h2>Week 2</h2><div class="tracker-grid">${[8, 9, 10, 11, 12, 13, 14].map(i => `<div class="tracker-day ${d['final_w2_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div>
+                <h2>Week 3</h2><div class="tracker-grid">${[15, 16, 17, 18, 19, 20, 21].map(i => `<div class="tracker-day ${d['final_w3_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div>
+                <h2>Week 4</h2><div class="tracker-grid">${[22, 23, 24, 25, 26, 27, 28].map(i => `<div class="tracker-day ${d['final_w4_' + i] ? 'done' : ''}">${i}</div>`).join('')}</div>
+                <h3>Gratitude Letter</h3><p style="font-size:9pt;border:1px solid #529294;padding:3mm;max-height:60mm;overflow:hidden;">${v('gratitude_letter').substring(0, 500) || 'No letter written yet.'}</p>
+                <div class="footer">Rewirement - Page 3 of 3</div></div>`;
+
+            document.getElementById('printReport').innerHTML = page1 + page2 + page3;
+            setTimeout(() => window.print(), 100);
+        }
+
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => { }); }
+    </script>
+</body>
+
+</html>
